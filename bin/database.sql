@@ -1,0 +1,2 @@
+CREATE DATABASE tellernews;
+GRANT ALL PRIVILEGES ON DATABASE tellernews TO guyo
