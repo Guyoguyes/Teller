@@ -1,5 +1,8 @@
 package DAO;
 
-public interface AuthorDAO {
+import models.Author;
 
+public interface AuthorDAO {
+    //create author
+    void createAuthor(Author author);
 }

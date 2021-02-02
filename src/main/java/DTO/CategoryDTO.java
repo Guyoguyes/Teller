@@ -18,15 +18,14 @@ public class CategoryDTO implements CategoryDAO {
 
     @Override
     public void createCategory(Category category) {
+        System.out.println(category);
         String sql = "INSERT INTO category (category_name) VALUES (:categoryName)";
         try(Connection conn = sql2o.open()){
-            int id = (int) conn.createQuery(sql)
+            long id = (long) conn.createQuery(sql, true )
                     .bind(category)
                     .executeUpdate()
-                    .getKey(Integer.class);
+                    .getKey(Long.class);
             category.setCatId(id);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
         }
     }
 

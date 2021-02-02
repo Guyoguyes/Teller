@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Author {
-    private UUID authorId;
+    private long authorId;
     private String firstName;
     private String lastName;
     private String title;
@@ -15,12 +15,12 @@ public class Author {
         this.title = title;
     }
 
-    public UUID getAuthorId() {
+    public long getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(UUID authorId) {
-        this.authorId = UUID.randomUUID();
+    public void setAuthorId(long authorId) {
+        this.authorId = authorId;
     }
 
     public String getFirstName() {
@@ -58,5 +58,15 @@ public class Author {
     @Override
     public int hashCode() {
         return Objects.hash(authorId, firstName, lastName, title);
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "authorId=" + authorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

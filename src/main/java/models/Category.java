@@ -4,18 +4,18 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Category {
-    private int catId;
+    private long catId;
     private String categoryName;
     
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public int getCatId() {
+    public long getCatId() {
         return catId;
     }
 
-    public void setCatId(int catId) {
+    public void setCatId(long catId) {
         this.catId = catId;
     }
 
@@ -40,4 +40,11 @@ public class Category {
         return Objects.hash(catId, categoryName);
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "catId=" + catId +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
+    }
 }
