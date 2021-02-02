@@ -4,19 +4,19 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Category {
-    private UUID catId;
+    private int catId;
     private String categoryName;
     
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public UUID getCatId() {
+    public int getCatId() {
         return catId;
     }
 
-    public void setCatId(UUID catId) {
-        this.catId = UUID.randomUUID();
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
     public String getCategoryName() {

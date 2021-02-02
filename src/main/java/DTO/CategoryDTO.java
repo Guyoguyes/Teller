@@ -18,13 +18,15 @@ public class CategoryDTO implements CategoryDAO {
 
     @Override
     public void createCategory(Category category) {
-        String sql = "INSERT INTO category (cat_id, category_name) values (?, ?)";
+        String sql = "INSERT INTO category (category_name) VALUES (:categoryName)";
         try(Connection conn = sql2o.open()){
-            UUID id = (UUID) conn.createQuery(sql, true)
+            int id = (int) conn.createQuery(sql)
                     .bind(category)
                     .executeUpdate()
-                    .getKey();
+                    .getKey(Integer.class);
             category.setCatId(id);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -38,11 +40,11 @@ public class CategoryDTO implements CategoryDAO {
     }
 
     @Override
-    public Category findbyId(UUID id) {
-        String sql = "SELECT * FROM category WHERE cat_id = :cat_id";
+    public Category findbyId(int id) {
+        String sql = "SELECT * FROM category WHERE catId = :catId";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
-                    .addParameter("cat_id", id)
+                    .addParameter("catId", id)
                     .executeAndFetchFirst(Category.class);
         }
     }
