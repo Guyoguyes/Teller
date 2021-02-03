@@ -48,4 +48,14 @@ public class CategoryDTO implements CategoryDAO {
                     .executeAndFetchFirst(Category.class);
         }
     }
+
+    @Override
+    public void deleteCategory(long id) {
+        String sql = "DELETE FROM category WHERE catid = :catId";
+        try(Connection conn = sql2o.open()){
+            conn.createQuery(sql)
+                    .addParameter("catId", id)
+                    .executeUpdate();
+        }
+    }
 }

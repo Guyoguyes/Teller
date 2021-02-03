@@ -16,4 +16,7 @@ public interface CategoryDAO {
     //findById
     Category findById(long id);
 
+    //delete by id
+    void deleteCategory(long id);
+
 }

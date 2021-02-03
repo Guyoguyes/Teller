@@ -26,20 +26,16 @@ public class Main {
             Category category = gson.fromJson(req.body(), Category.class);
             categoryDTO.createCategory(category);
             res.status(201);
-            res.type("application/json");
             return gson.toJson(category);
         });
 
         get("api/category", "application/json", (req, res) ->{
             res.status(200);
-            res.type("application/json");
             return gson.toJson(categoryDTO.getAllCategory());
         });
 
         get("api/category/:catId", "application/json", (req, res) ->{
-            res.type("application/json");
             int categoryId = Integer.parseInt(req.params("catId"));
-            res.type("application/json");
             return gson.toJson(categoryDTO.findById(categoryId));
         });
 
@@ -48,14 +44,18 @@ public class Main {
             Author author = gson.fromJson(req.body(), Author.class);
             authorDTO.createAuthor(author);
             res.status(201);
-            res.type("application/json");
             return gson.toJson(author);
         });
 
         get("api/author", "application/json", (req, res) ->{
             res.status(200);
-            res.type("application/json");
             return gson.toJson(authorDTO.getAllAuthor());
+        });
+
+        //filters
+
+        after((req, res) ->{
+            res.type("application/json");
         });
     }
 }
