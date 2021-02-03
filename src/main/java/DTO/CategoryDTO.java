@@ -30,21 +30,12 @@ public class CategoryDTO implements CategoryDAO {
     }
 
     @Override
-    public List<Category> findAll() {
-        String sql = "SELECT * FROM category";
+    public List<Category> getAllCategory() {
+        System.out.println("works");
+//        String sql = "SELECT * FROM category";
         try(Connection conn = sql2o.open()){
-            return conn.createQuery(sql)
+            return conn.createQuery("SELECT * FROM category")
                     .executeAndFetch(Category.class);
-        }
-    }
-
-    @Override
-    public Category findbyId(int id) {
-        String sql = "SELECT * FROM category WHERE catId = :catId";
-        try(Connection conn = sql2o.open()){
-            return conn.createQuery(sql)
-                    .addParameter("catId", id)
-                    .executeAndFetchFirst(Category.class);
         }
     }
 }

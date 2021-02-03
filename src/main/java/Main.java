@@ -21,7 +21,8 @@ public class Main {
         authorDTO = new AuthorDTO(sql2o);
         conn = sql2o.open();
 
-        post("/api/category", "application/json", (req, res) ->{
+        //CATEGORY
+        post("api/category", "application/json", (req, res) ->{
             Category category = gson.fromJson(req.body(), Category.class);
             categoryDTO.createCategory(category);
             res.status(201);
@@ -29,17 +30,25 @@ public class Main {
             return gson.toJson(category);
         });
 
-        get("/api/category", "application/json", (req, res) ->{
+        get("api/category", "application/json", (req, res) ->{
+//            res.status(200);
             res.type("application/json");
-            return gson.toJson(categoryDTO.findAll());
+            return gson.toJson(categoryDTO.getAllCategory());
         });
 
+        //AUTHOR
         post("api/author", "application/json", (req, res) ->{
             Author author = gson.fromJson(req.body(), Author.class);
             authorDTO.createAuthor(author);
             res.status(201);
             res.type("application/json");
             return gson.toJson(author);
+        });
+
+        get("api/author", "application/json", (req, res) ->{
+            res.status(200);
+            res.type("application/json");
+            return gson.toJson(authorDTO.getAllAuthor());
         });
     }
 }

@@ -5,6 +5,8 @@ import models.Author;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.List;
+
 public class AuthorDTO implements AuthorDAO {
     private final Sql2o sql2o;
 
@@ -18,13 +20,18 @@ public class AuthorDTO implements AuthorDAO {
         String sql = "INSERT INTO author (firstname, lastname, title) VALUES (:firstName, :lastName, :title)";
         try(Connection conn = sql2o.open()){
             long id = (long) conn.createQuery(sql, true)
-              //      .addParameter("firstname", author.getFirstName())
-               //     .addParameter("lastname", author.getLastName())
-                //    .addParameter("title", author.getTitle())
                     .bind(author)
                     .executeUpdate()
                     .getKey(Long.class);
             author.setAuthorId(id);
+        }
+    }
+
+    @Override
+    public List<Author> getAllAuthor() {
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT * FROM author")
+                    .executeAndFetch(Author.class);
         }
     }
 }
