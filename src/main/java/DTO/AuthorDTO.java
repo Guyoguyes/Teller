@@ -34,4 +34,14 @@ public class AuthorDTO implements AuthorDAO {
                     .executeAndFetch(Author.class);
         }
     }
+
+    @Override
+    public Author findById(long id) {
+        String sql = "SELECT * FROM author WHERE authorid = :authorId";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .addParameter("authorId", id)
+                    .executeAndFetchFirst(Author.class);
+        }
+    }
 }

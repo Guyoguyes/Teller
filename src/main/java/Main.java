@@ -58,6 +58,12 @@ public class Main {
             return gson.toJson(authorDTO.getAllAuthor());
         });
 
+        get("api/author/:authorId", "appilication/json", (req, res) ->{
+            int authorId = Integer.parseInt(req.params("authorId"));
+            res.status(200);
+            return gson.toJson(authorDTO.findById(authorId));
+        });
+
         //filters
         //TODO: EXCEPTION PLUS EXCEPTION FILTER 2
 

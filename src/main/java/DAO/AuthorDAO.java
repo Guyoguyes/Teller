@@ -10,4 +10,7 @@ public interface AuthorDAO {
 
     //find all
     List<Author> getAllAuthor();
+
+    //find by id
+    Author findById(long id);
 }
