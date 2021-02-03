@@ -31,9 +31,16 @@ public class Main {
         });
 
         get("api/category", "application/json", (req, res) ->{
-//            res.status(200);
+            res.status(200);
             res.type("application/json");
             return gson.toJson(categoryDTO.getAllCategory());
+        });
+
+        get("api/category/:catId", "application/json", (req, res) ->{
+            res.type("application/json");
+            int categoryId = Integer.parseInt(req.params("catId"));
+            res.type("application/json");
+            return gson.toJson(categoryDTO.findById(categoryId));
         });
 
         //AUTHOR

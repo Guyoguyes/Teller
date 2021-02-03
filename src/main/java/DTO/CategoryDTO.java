@@ -19,7 +19,7 @@ public class CategoryDTO implements CategoryDAO {
     @Override
     public void createCategory(Category category) {
         System.out.println(category);
-        String sql = "INSERT INTO category (category_name) VALUES (:categoryName)";
+        String sql = "INSERT INTO category (categoryname) VALUES (:categoryName)";
         try(Connection conn = sql2o.open()){
             long id = (long) conn.createQuery(sql, true )
                     .bind(category)
@@ -36,6 +36,16 @@ public class CategoryDTO implements CategoryDAO {
         try(Connection conn = sql2o.open()){
             return conn.createQuery("SELECT * FROM category")
                     .executeAndFetch(Category.class);
+        }
+    }
+
+    @Override
+    public Category findById(long id) {
+        String sql = "SELECT * FROM category WHERE catid = :catId";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .addParameter("catId", id)
+                    .executeAndFetchFirst(Category.class);
         }
     }
 }

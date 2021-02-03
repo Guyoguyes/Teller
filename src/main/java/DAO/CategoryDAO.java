@@ -10,6 +10,10 @@ public interface CategoryDAO {
     //create category
     void createCategory(Category category);
 
+    // find all
     List<Category> getAllCategory();
+
+    //findById
+    Category findById(long id);
 
 }
