@@ -8,5 +8,6 @@ public interface AuthorDAO {
     //create author
     void createAuthor(Author author);
 
+    //find all
     List<Author> getAllAuthor();
 }

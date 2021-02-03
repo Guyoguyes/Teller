@@ -36,8 +36,14 @@ public class Main {
 
         get("api/category/:catId", "application/json", (req, res) ->{
             int categoryId = Integer.parseInt(req.params("catId"));
+            res.status(200);
             return gson.toJson(categoryDTO.findById(categoryId));
         });
+
+        //TODO: DELETE ROUTE 1
+//        delete("api/category/:catId", "application/json", (req, res) ->{
+//
+//        });
 
         //AUTHOR
         post("api/author", "application/json", (req, res) ->{
@@ -53,6 +59,7 @@ public class Main {
         });
 
         //filters
+        //TODO: EXCEPTION PLUS EXCEPTION FILTER 2
 
         after((req, res) ->{
             res.type("application/json");
