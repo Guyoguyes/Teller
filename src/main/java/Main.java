@@ -7,6 +7,9 @@ import models.Category;
 import models.News;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+
+import java.util.List;
+
 import static spark.Spark.*;
 
 
@@ -75,6 +78,24 @@ public class Main {
             res.status(201);
             return gson.toJson(news);
         });
+
+        get("api/news", "application/json", (req, res) ->{
+            res.status(201);
+            return gson.toJson(newsDTO.getAllNews());
+        });
+
+
+//        get("api/category/:catId/news", "application/json", (req, res) ->{
+//            int catId = Integer.parseInt(req.params("catId"));
+//            Category category = categoryDTO.findById(catId);
+//            if(category == null){
+//                return "{\"message\":\"no news found\"}";
+//            }else{
+//                return gson.toJson(newsDTO.getAllNewsByCategory(catId));
+//            }
+//
+//
+//        });
 
         //filters
         //TODO: EXCEPTION PLUS EXCEPTION FILTER 2

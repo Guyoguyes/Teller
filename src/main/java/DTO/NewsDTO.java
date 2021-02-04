@@ -6,6 +6,8 @@ import models.News;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.List;
+
 public class NewsDTO implements NewsDAO {
     private final Sql2o sql2o;
 
@@ -15,6 +17,7 @@ public class NewsDTO implements NewsDAO {
 
     @Override
     public void createNews(News news) {
+        //debug purpose
         System.out.println(news);
         String sql = "INSERT INTO news (catid, authorid, content, createdat) VALUES (:categoryId, :authorId, :content, :createdAt)";
         try(Connection conn = sql2o.open()){
@@ -24,6 +27,25 @@ public class NewsDTO implements NewsDAO {
                     .getKey(Long.class);
             news.setNewsId(id);
         }
+    }
 
+    @Override
+    public List<News> getAllNews() {
+        try(Connection conn = sql2o.open()){
+            //debug purpose
+            System.out.println("Found status ok");
+            return conn.createQuery("SELECT * FROM news")
+                    .executeAndFetch(News.class);
+        }
+    }
+
+    @Override
+    public List<News> getAllNewsByCategory(long catid) {
+        String sql = "SELECT * FROM news WHERE catid = :catId";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .addParameter("catId", catid)
+                    .executeAndFetch(News.class);
+        }
     }
 }
