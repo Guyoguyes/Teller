@@ -1,8 +1,10 @@
 import DTO.AuthorDTO;
 import DTO.CategoryDTO;
+import DTO.NewsDTO;
 import com.google.gson.Gson;
 import models.Author;
 import models.Category;
+import models.News;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import static spark.Spark.*;
@@ -12,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         CategoryDTO categoryDTO;
         AuthorDTO authorDTO;
+        NewsDTO newsDTO;
         Connection conn;
         Gson gson = new Gson();
 
@@ -19,6 +22,7 @@ public class Main {
         Sql2o sql2o = new Sql2o(connectionString, "guyo","password");
         categoryDTO = new CategoryDTO(sql2o);
         authorDTO = new AuthorDTO(sql2o);
+        newsDTO = new NewsDTO(sql2o);
         conn = sql2o.open();
 
         //CATEGORY
@@ -62,6 +66,14 @@ public class Main {
             int authorId = Integer.parseInt(req.params("authorId"));
             res.status(200);
             return gson.toJson(authorDTO.findById(authorId));
+        });
+
+        //NEWS
+        post("api/news", "application/json", (req, res) ->{
+            News news = gson.fromJson(req.body(), News.class);
+            newsDTO.createNews(news);
+            res.status(201);
+            return gson.toJson(news);
         });
 
         //filters

@@ -5,40 +5,40 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class News {
-    private UUID newsId;
-    private UUID categoryId;
-    private UUID authorId;
+    private long newsId;
+    private long categoryId;
+    private long authorId;
     private String content;
     private Timestamp createdAt;
 
-    public News(UUID categoryId, UUID authorId, String content, Timestamp createdAt){
+    public News(long categoryId, long authorId, String content, Timestamp createdAt){
         this.categoryId = categoryId;
         this.authorId = authorId;
         this.content = content;
         this.createdAt = createdAt;
     }
 
-    public UUID getNewsId() {
+    public long getNewsId() {
         return newsId;
     }
 
-    public void setNewsId(UUID newsId) {
-        this.newsId = UUID.randomUUID();
+    public void setNewsId(long newsId) {
+        this.newsId = newsId;
     }
 
-    public UUID getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(UUID categoryId) {
+    public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
 
-    public UUID getAuthorId() {
+    public long getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(UUID authorId) {
+    public void setAuthorId(long authorId) {
         this.authorId = authorId;
     }
 
@@ -69,5 +69,16 @@ public class News {
     @Override
     public int hashCode() {
         return Objects.hash(newsId, categoryId, authorId, content, createdAt);
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "newsId=" + newsId +
+                ", categoryId=" + categoryId +
+                ", authorId=" + authorId +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
