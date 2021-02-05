@@ -1,6 +1,7 @@
 package DTO;
 
 import DAO.CommentDAO;
+import com.google.gson.JsonElement;
 import models.Comment;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -34,5 +35,36 @@ public class CommentDTO implements CommentDAO {
                     .addParameter("newsId", newsId)
                     .executeAndFetch(Comment.class);
         }
+    }
+
+    @Override
+    public int totalCommentByNews(long newsId) {
+        String sql = "SELECT COUNT(*) FROM comment WHERE newsid = :newsId";
+        try(Connection conn = sql2o.open()){
+            return (int) conn.createQuery(sql)
+                    .addParameter("newsId", newsId)
+                    .executeScalar(Integer.class);
+        }
+    }
+
+    @Override
+    public Comment findCommentById(long commentId) {
+        String sql = "SELECT * FROM comment WHERE commentid = :commentId";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .addParameter("commentId", commentId)
+                    .executeAndFetchFirst(Comment.class);
+        }
+    }
+
+    @Override
+    public JsonElement deleteComment(long commentId) {
+        String sql = "DELETE FROM comment WHERE commentid = :commentId";
+        try(Connection conn = sql2o.open()){
+            conn.createQuery(sql)
+                    .addParameter("commentId", commentId)
+                    .executeUpdate();
+        }
+        return null;
     }
 }

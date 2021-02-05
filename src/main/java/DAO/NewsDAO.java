@@ -18,4 +18,5 @@ public interface NewsDAO {
 
     //get all news by category
     List<News> getAllNewsByCategory(long catid);
+
 }

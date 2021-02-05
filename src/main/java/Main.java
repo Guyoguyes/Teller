@@ -128,6 +128,31 @@ public class Main {
             }
         });
 
+        get("api/news/:newsId/comment/count", "application/json", (req, res) ->{
+            int newsId = Integer.parseInt(req.params("newsId"));
+            newsDTO.findNewsById(newsId);
+            res.status(200);
+            return gson.toJson(commentDTO.totalCommentByNews(newsId));
+        });
+
+        delete("api/news/:newsId/comment/:commentId/delete",  "application/json", (req, res) ->{
+            int newsId = Integer.parseInt(req.params("newsId"));
+            News news = newsDTO.findNewsById(newsId);
+            if(news == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                int commentId = Integer.parseInt(req.params("commentId"));
+                Comment comment = commentDTO.findCommentById(commentId);
+                if(comment == null){
+                    return "{\"message\":\"no comment found\"}";
+                }else{
+                    res.status(200);
+
+                    return gson.toJson(commentDTO.deleteComment(commentId));
+                }
+            }
+        });
+
         //filters
         exception(ApiException.class, (exc, req, res) ->{
             ApiException err = (ApiException) exc;
