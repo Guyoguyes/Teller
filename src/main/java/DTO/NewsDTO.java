@@ -19,13 +19,23 @@ public class NewsDTO implements NewsDAO {
     public void createNews(News news) {
         //debug purpose
         System.out.println(news);
-        String sql = "INSERT INTO news (catid, authorid, content, createdat) VALUES (:categoryId, :authorId, :content, :createdAt)";
+        String sql = "INSERT INTO news (categoryid, authorid, content, createdat) VALUES (:categoryId, :authorId, :content, :createdAt)";
         try(Connection conn = sql2o.open()){
             long id = (long) conn.createQuery(sql, true)
                     .bind(news)
                     .executeUpdate()
                     .getKey(Long.class);
             news.setNewsId(id);
+        }
+    }
+
+    @Override
+    public News findNewsById(long newsid) {
+        String sql = "SELECT * FROM news WHERE newsid = :newsId";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .addParameter("newsId", newsid)
+                    .executeAndFetchFirst(News.class);
         }
     }
 

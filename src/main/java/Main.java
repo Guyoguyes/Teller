@@ -79,6 +79,12 @@ public class Main {
             return gson.toJson(news);
         });
 
+        get("api/news/:newsId", "application/json", (req, res) ->{
+            int newsId= Integer.parseInt(req.params("newsId"));
+            res.status(200);
+            return gson.toJson((newsDTO.findNewsById(newsId)));
+        });
+
         get("api/news", "application/json", (req, res) ->{
             res.status(201);
             return gson.toJson(newsDTO.getAllNews());

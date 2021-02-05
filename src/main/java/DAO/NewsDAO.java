@@ -13,6 +13,9 @@ public interface NewsDAO {
     //get all news
     List<News> getAllNews();
 
+    //Find by id
+    News findNewsById(long newsid);
+
     //get all news by category
     List<News> getAllNewsByCategory(long catid);
 }
