@@ -51,7 +51,7 @@ public class NewsDTO implements NewsDAO {
 
     @Override
     public List<News> getAllNewsByCategory(long catid) {
-        String sql = "SELECT * FROM news WHERE catid = :catId";
+        String sql = "SELECT * FROM news WHERE categoryid = :catId";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                     .addParameter("catId", catid)

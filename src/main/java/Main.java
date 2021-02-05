@@ -94,17 +94,17 @@ public class Main {
         });
 
 
-//        get("api/category/:catId/news", "application/json", (req, res) ->{
-//            int catId = Integer.parseInt(req.params("catId"));
-//            Category category = categoryDTO.findById(catId);
-//            if(category == null){
-//                return "{\"message\":\"no news found\"}";
-//            }else{
-//                return gson.toJson(newsDTO.getAllNewsByCategory(catId));
-//            }
-//
-//
-//        });
+        get("api/category/:catId/news", "application/json", (req, res) ->{
+            int catId = Integer.parseInt(req.params("catId"));
+            Category category = categoryDTO.findById(catId);
+            if(category == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                return gson.toJson(newsDTO.getAllNewsByCategory(catId));
+            }
+
+
+        });
 
         //filters
         exception(ApiException.class, (exc, req, res) ->{

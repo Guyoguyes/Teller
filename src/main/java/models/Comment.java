@@ -5,30 +5,30 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Comment {
-    private UUID commentId;
-    private UUID newsId;
+    private long commentId;
+    private long newsId;
     private String comment;
     private Timestamp commentDate;
 
-    public Comment(UUID newsId, String comment, Timestamp commentDate){
+    public Comment(long newsId, String comment, Timestamp commentDate){
         this.newsId = newsId;
         this.comment = comment;
         this.commentDate = commentDate;
     }
 
-    public UUID getCommentId() {
+    public long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(UUID commentId) {
-        this.commentId = UUID.randomUUID();
+    public void setCommentId(long commentId) {
+        this.commentId = commentId;
     }
 
-    public UUID getNewsId() {
+    public long getNewsId() {
         return newsId;
     }
 
-    public void setNewsId(UUID newsId) {
+    public void setNewsId(long newsId) {
         this.newsId = newsId;
     }
 
