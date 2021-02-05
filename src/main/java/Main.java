@@ -1,6 +1,7 @@
 import DTO.AuthorDTO;
 import DTO.CategoryDTO;
 import DTO.NewsDTO;
+import Exceptions.ApiException;
 import com.google.gson.Gson;
 import models.Author;
 import models.Category;
@@ -8,7 +9,9 @@ import models.News;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static spark.Spark.*;
 
@@ -104,7 +107,15 @@ public class Main {
 //        });
 
         //filters
-        //TODO: EXCEPTION PLUS EXCEPTION FILTER 2
+        exception(ApiException.class, (exc, req, res) ->{
+            ApiException err = (ApiException) exc;
+            Map<String, Object> jsonMap = new HashMap<>();
+            jsonMap.put("err", err.getStatusCode());
+            jsonMap.put("errorMessage", err.getMessage());
+            res.type("application/json");
+            res.status(err.getStatusCode());
+            res.body(gson.toJson(jsonMap));
+        });
 
         after((req, res) ->{
             res.type("application/json");
