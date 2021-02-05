@@ -7,12 +7,12 @@ import java.util.UUID;
 public class Comment {
     private long commentId;
     private long newsId;
-    private String comment;
+    private String content;
     private Timestamp commentDate;
 
-    public Comment(long newsId, String comment, Timestamp commentDate){
+    public Comment(long newsId, String content, Timestamp commentDate){
         this.newsId = newsId;
-        this.comment = comment;
+        this.content = content;
         this.commentDate = commentDate;
     }
 
@@ -32,12 +32,12 @@ public class Comment {
         this.newsId = newsId;
     }
 
-    public String getComment() {
-        return comment;
+    public String getContent() {
+        return content;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Timestamp getCommentDate() {
@@ -53,11 +53,11 @@ public class Comment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment1 = (Comment) o;
-        return Objects.equals(commentId, comment1.commentId) && Objects.equals(newsId, comment1.newsId) && Objects.equals(comment, comment1.comment) && Objects.equals(commentDate, comment1.commentDate);
+        return Objects.equals(commentId, comment1.commentId) && Objects.equals(newsId, comment1.newsId) && Objects.equals(content, comment1.content) && Objects.equals(commentDate, comment1.commentDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(commentId, newsId, comment, commentDate);
+        return Objects.hash(commentId, newsId, content, commentDate);
     }
 }

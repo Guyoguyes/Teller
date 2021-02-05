@@ -1,10 +1,12 @@
 import DTO.AuthorDTO;
 import DTO.CategoryDTO;
+import DTO.CommentDTO;
 import DTO.NewsDTO;
 import Exceptions.ApiException;
 import com.google.gson.Gson;
 import models.Author;
 import models.Category;
+import models.Comment;
 import models.News;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -21,6 +23,7 @@ public class Main {
         CategoryDTO categoryDTO;
         AuthorDTO authorDTO;
         NewsDTO newsDTO;
+        CommentDTO commentDTO;
         Connection conn;
         Gson gson = new Gson();
 
@@ -29,6 +32,7 @@ public class Main {
         categoryDTO = new CategoryDTO(sql2o);
         authorDTO = new AuthorDTO(sql2o);
         newsDTO = new NewsDTO(sql2o);
+        commentDTO = new CommentDTO(sql2o);
         conn = sql2o.open();
 
         //CATEGORY
@@ -104,6 +108,24 @@ public class Main {
             }
 
 
+        });
+
+        //COMMENTS
+        post("api/comment", "application/json", (req, res) ->{
+            Comment comment = gson.fromJson(req.body(), Comment.class);
+            commentDTO.postComment(comment);
+            res.status(200);
+            return gson.toJson(comment);
+        });
+
+        get("api/news/:newsId/comment", "application/json", (req, res) ->{
+            int newsId = Integer.parseInt(req.params("newsId"));
+            News news = newsDTO.findNewsById(newsId);
+            if(news == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                return gson.toJson(commentDTO.getAllCommentByNews(newsId));
+            }
         });
 
         //filters
