@@ -108,23 +108,10 @@ public class Main {
             }
         });
 
-        get("api/category/:catId/news/:newsId", "application/json", (req, res) ->{
-            int categoryId = Integer.parseInt(req.params("catId"));
-            Category category = categoryDTO.findById(categoryId);
-            if(category == null){
-                return "{\"message\":\"no news found\"}";
-            }else{
-                int newsId= Integer.parseInt(req.params("newsId"));
-                res.status(200);
-                return gson.toJson((newsDTO.findNewsById(newsId)));
-            }
-        });
-
         get("api/news", "application/json", (req, res) ->{
             res.status(201);
             return gson.toJson(newsDTO.getAllNews());
         });
-
 
         get("api/category/:catId/news", "application/json", (req, res) ->{
             int catId = Integer.parseInt(req.params("catId"));
@@ -138,12 +125,31 @@ public class Main {
 
         });
 
+        get("api/category/:catId/news/:newsId", "application/json", (req, res) ->{
+            int categoryId = Integer.parseInt(req.params("catId"));
+            Category category = categoryDTO.findById(categoryId);
+            if(category == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                int newsId= Integer.parseInt(req.params("newsId"));
+                res.status(200);
+                return gson.toJson((newsDTO.findNewsById(newsId)));
+            }
+        });
+
+
         //COMMENTS
-        post("api/comment", "application/json", (req, res) ->{
-            Comment comment = gson.fromJson(req.body(), Comment.class);
-            commentDTO.postComment(comment);
-            res.status(200);
-            return gson.toJson(comment);
+        post("api/news/:newsId/comment", "application/json", (req, res) ->{
+            int newsId = Integer.parseInt(req.params("newsId"));
+            News news = newsDTO.findNewsById(newsId);
+            if(news == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                Comment comment = gson.fromJson(req.body(), Comment.class);
+                commentDTO.postComment(comment);
+                res.status(200);
+                return gson.toJson(comment);
+            }
         });
 
         get("api/news/:newsId/comment", "application/json", (req, res) ->{

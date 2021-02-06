@@ -9,6 +9,8 @@ public class Author {
     private String lastName;
     private String title;
 
+    //TODO: Author image profile
+
     public Author(String firstName, String lastName, String title){
         this.firstName = firstName;
         this.lastName = lastName;

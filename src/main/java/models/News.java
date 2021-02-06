@@ -11,6 +11,8 @@ public class News {
     private String content;
     private Timestamp createdAt;
 
+    //TODO news image
+
     public News(long categoryId, long authorId, String content, Timestamp createdAt){
         this.categoryId = categoryId;
         this.authorId = authorId;
