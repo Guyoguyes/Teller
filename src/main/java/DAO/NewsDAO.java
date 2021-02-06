@@ -19,4 +19,6 @@ public interface NewsDAO {
     //get all news by category
     List<News> getAllNewsByCategory(long catid);
 
+    //get all news by author
+    List<News> getAllNewsByAuthor(long authorid);
 }

@@ -58,4 +58,14 @@ public class NewsDTO implements NewsDAO {
                     .executeAndFetch(News.class);
         }
     }
+
+    @Override
+    public List<News> getAllNewsByAuthor(long authorid) {
+        String sql = "SELECT * FROM news WHERE authorid = :authorId";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .addParameter("authorId", authorid)
+                    .executeAndFetch(News.class);
+        }
+    }
 }

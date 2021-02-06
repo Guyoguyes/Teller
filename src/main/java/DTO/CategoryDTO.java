@@ -1,13 +1,12 @@
 package DTO;
 
 import DAO.CategoryDAO;
+import com.google.gson.JsonElement;
 import models.Category;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.UUID;
 
 public class CategoryDTO implements CategoryDAO {
     private final Sql2o sql2o;
@@ -50,12 +49,13 @@ public class CategoryDTO implements CategoryDAO {
     }
 
     @Override
-    public void deleteCategory(long id) {
+    public JsonElement deleteCategory(long id) {
         String sql = "DELETE FROM category WHERE catid = :catId";
         try(Connection conn = sql2o.open()){
             conn.createQuery(sql)
                     .addParameter("catId", id)
                     .executeUpdate();
         }
+        return null;
     }
 }

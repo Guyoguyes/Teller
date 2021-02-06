@@ -1,9 +1,9 @@
 package DAO;
 
+import com.google.gson.JsonElement;
 import models.Category;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface CategoryDAO {
 
@@ -17,6 +17,6 @@ public interface CategoryDAO {
     Category findById(long id);
 
     //delete by id
-    void deleteCategory(long id);
+    JsonElement deleteCategory(long id);
 
 }
