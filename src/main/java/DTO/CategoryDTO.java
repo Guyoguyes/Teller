@@ -40,7 +40,7 @@ public class CategoryDTO implements CategoryDAO {
 
     @Override
     public Category findById(long id) {
-        String sql = "SELECT * FROM category WHERE catid = :catId";
+        String sql = "SELECT * FROM category WHERE categoryid = :catId";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                     .addParameter("catId", id)
@@ -50,7 +50,7 @@ public class CategoryDTO implements CategoryDAO {
 
     @Override
     public JsonElement deleteCategory(long id) {
-        String sql = "DELETE FROM category WHERE catid = :catId";
+        String sql = "DELETE FROM category WHERE categoryid = :catId";
         try(Connection conn = sql2o.open()){
             conn.createQuery(sql)
                     .addParameter("catId", id)
