@@ -8,14 +8,16 @@ public class News {
     private long newsId;
     private long categoryId;
     private long authorId;
+    private String header;
     private String content;
     private Timestamp createdAt;
 
     //TODO news image
 
-    public News(long categoryId, long authorId, String content, Timestamp createdAt){
+    public News(long categoryId, long authorId, String header, String content, Timestamp createdAt){
         this.categoryId = categoryId;
         this.authorId = authorId;
+        this.header = header;
         this.content = content;
         this.createdAt = createdAt;
     }
@@ -42,6 +44,14 @@ public class News {
 
     public void setAuthorId(long authorId) {
         this.authorId = authorId;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 
     public String getContent() {
