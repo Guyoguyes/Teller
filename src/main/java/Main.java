@@ -44,7 +44,6 @@ public class Main {
         });
 
         get("api/category", "application/json", (req, res) ->{
-            res.status(200);
             return gson.toJson(categoryDTO.getAllCategory());
         });
 
@@ -78,21 +77,13 @@ public class Main {
             return gson.toJson(authorDTO.getAllAuthor());
         });
 
-        get("api/author/:authorId", "appilication/json", (req, res) ->{
+        get("api/author/:authorId", "application/json", (req, res) ->{
             int authorId = Integer.parseInt(req.params("authorId"));
             res.status(200);
             return gson.toJson(authorDTO.findById(authorId));
         });
 
-        get("api/news/:authorId", "application/json", (req, res) ->{
-            int authorId = Integer.parseInt(req.params("authorId"));
-            Author author = authorDTO.findById(authorId);
-            if(author == null){
-                return "{\"message\":\"no news found\"}";
-            }else{
-                return gson.toJson(newsDTO.getAllNewsByAuthor(authorId));
-            }
-        });
+
 
         //NEWS
         post("api/category/:categoryId/news", "application/json", (req, res) ->{
@@ -113,6 +104,38 @@ public class Main {
             return gson.toJson(newsDTO.getAllNews());
         });
 
+        get("api/news/:newsId", "application/json", (req, res) ->{
+            int newsId = Integer.parseInt(req.params("newsId"));
+            News news = newsDTO.findNewsById(newsId);
+            if(news == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                return gson.toJson(news);
+            }
+        });
+
+//        get("api/category/:catId/news/:newsId", "application/json", (req, res) ->{
+//            int categoryId = Integer.parseInt(req.params("catId"));
+//            Category category = categoryDTO.findById(categoryId);
+//            if(category == null){
+//                return "{\"message\":\"no news found\"}";
+//            }else{
+//                int newsId= Integer.parseInt(req.params("newsId"));
+//                res.status(200);
+//                return gson.toJson((newsDTO.findNewsById(newsId)));
+//            }
+//        });
+
+        get("api/news/author/:authorId", "application/json", (req, res) ->{
+            int authorId = Integer.parseInt(req.params("authorId"));
+            Author author = authorDTO.findById(authorId);
+            if(author == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                return gson.toJson(newsDTO.getAllNewsByAuthor(authorId));
+            }
+        });
+
         get("api/category/:catId/news", "application/json", (req, res) ->{
             int catId = Integer.parseInt(req.params("catId"));
             Category category = categoryDTO.findById(catId);
@@ -125,17 +148,7 @@ public class Main {
 
         });
 
-        get("api/category/:catId/news/:newsId", "application/json", (req, res) ->{
-            int categoryId = Integer.parseInt(req.params("catId"));
-            Category category = categoryDTO.findById(categoryId);
-            if(category == null){
-                return "{\"message\":\"no news found\"}";
-            }else{
-                int newsId= Integer.parseInt(req.params("newsId"));
-                res.status(200);
-                return gson.toJson((newsDTO.findNewsById(newsId)));
-            }
-        });
+
 
 
         //COMMENTS
