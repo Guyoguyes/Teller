@@ -5,6 +5,8 @@ import models.Replies;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.List;
+
 public class RepliesDTO implements RepliesDAO {
     private final Sql2o sql2o;
 
@@ -23,4 +25,5 @@ public class RepliesDTO implements RepliesDAO {
             replies.setReplyId(id);
         }
     }
+
 }
