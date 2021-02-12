@@ -1,13 +1,7 @@
-import DTO.AuthorDTO;
-import DTO.CategoryDTO;
-import DTO.CommentDTO;
-import DTO.NewsDTO;
+import DTO.*;
 import Exceptions.ApiException;
 import com.google.gson.Gson;
-import models.Author;
-import models.Category;
-import models.Comment;
-import models.News;
+import models.*;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
@@ -24,6 +18,7 @@ public class Main {
         AuthorDTO authorDTO;
         NewsDTO newsDTO;
         CommentDTO commentDTO;
+        RepliesDTO repliesDTO;
         Connection conn;
         Gson gson = new Gson();
 
@@ -33,6 +28,7 @@ public class Main {
         authorDTO = new AuthorDTO(sql2o);
         newsDTO = new NewsDTO(sql2o);
         commentDTO = new CommentDTO(sql2o);
+        repliesDTO = new RepliesDTO(sql2o);
         conn = sql2o.open();
 
         //CATEGORY
@@ -199,6 +195,27 @@ public class Main {
                 }
             }
         });
+
+        //REPLIES
+        post("api/news/:newsId/comment/:commentId", "application/json", (req, res) ->{
+            int newsId = Integer.parseInt(req.params("newsId"));
+            News news = newsDTO.findNewsById(newsId);
+            if(news == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                int commentId = Integer.parseInt(req.params("commentId"));
+                Comment comment = commentDTO.findCommentById(commentId);
+                if(comment == null){
+                    return "{\"message\":\"no news found\"}";
+                }else{
+                    Replies replies = gson.fromJson(req.body(), Replies.class);
+                    repliesDTO.postReply(replies);
+                    res.status(201);
+                    return gson.toJson(replies);
+                }
+            }
+        });
+
 
         //filters
         exception(ApiException.class, (exc, req, res) ->{
