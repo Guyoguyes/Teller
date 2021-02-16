@@ -21,4 +21,7 @@ public interface CommentDAO {
 
     //delete comment
     JsonElement deleteComment(long commentId);
+
+    //post a review
+    void postReview(Comment comment);
 }

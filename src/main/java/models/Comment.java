@@ -9,9 +9,15 @@ public class Comment {
     private long newsId;
     private String content;
     private Timestamp commentDate;
+    private long reviewId;
 
     public Comment(long newsId, String content, Timestamp commentDate){
         this.newsId = newsId;
+        this.content = content;
+        this.commentDate = commentDate;
+    }
+
+    public Comment(String content, Timestamp commentDate) {
         this.content = content;
         this.commentDate = commentDate;
     }
@@ -48,16 +54,24 @@ public class Comment {
         this.commentDate = commentDate;
     }
 
+    public long getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(long reviewId) {
+        this.reviewId = reviewId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Comment comment1 = (Comment) o;
-        return Objects.equals(commentId, comment1.commentId) && Objects.equals(newsId, comment1.newsId) && Objects.equals(content, comment1.content) && Objects.equals(commentDate, comment1.commentDate);
+        Comment comment = (Comment) o;
+        return commentId == comment.commentId && newsId == comment.newsId && reviewId == comment.reviewId && Objects.equals(content, comment.content) && Objects.equals(commentDate, comment.commentDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(commentId, newsId, content, commentDate);
+        return Objects.hash(commentId, newsId, content, commentDate, reviewId);
     }
 }

@@ -18,7 +18,6 @@ public class Main {
         AuthorDTO authorDTO;
         NewsDTO newsDTO;
         CommentDTO commentDTO;
-        RepliesDTO repliesDTO;
         Connection conn;
         Gson gson = new Gson();
 
@@ -28,7 +27,6 @@ public class Main {
         authorDTO = new AuthorDTO(sql2o);
         newsDTO = new NewsDTO(sql2o);
         commentDTO = new CommentDTO(sql2o);
-        repliesDTO = new RepliesDTO(sql2o);
         conn = sql2o.open();
 
         //CATEGORY
@@ -196,8 +194,7 @@ public class Main {
             }
         });
 
-        //REPLIES
-        post("api/news/:newsId/comment/:commentId", "application/json", (req, res) ->{
+        post("api/news/:newsId/comment/:commentId/review", "application/json", (req, res) -> {
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
@@ -206,16 +203,17 @@ public class Main {
                 int commentId = Integer.parseInt(req.params("commentId"));
                 Comment comment = commentDTO.findCommentById(commentId);
                 if(comment == null){
-                    return "{\"message\":\"no news found\"}";
+                    return "{\"message\":\"no comment found\"}";
                 }else{
-                    Replies replies = gson.fromJson(req.body(), Replies.class);
-                    repliesDTO.postReply(replies);
-                    res.status(201);
-                    return gson.toJson(replies);
+                    Comment review = gson.fromJson(req.body(), Comment.class);
+                    review.setNewsId(newsId);
+                    review.setReviewId(comment.getCommentId());
+                    commentDTO.postReview(review);
+                    res.status(200);
+                    return gson.toJson(review);
                 }
             }
         });
-
 
         //filters
         exception(ApiException.class, (exc, req, res) ->{

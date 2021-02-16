@@ -28,6 +28,21 @@ public class CommentDTO implements CommentDAO {
     }
 
     @Override
+    public void postReview(Comment comment) {
+        String sql = "INSERT INTO comment(content, newsid, commentdate, reviewid) VALUES (:content, :newsId, :commentDate, :reviewId)";
+      try(Connection conn = sql2o.open()){
+          conn.createQuery(sql, true)
+                  .addParameter("content", comment.getContent())
+                  .addParameter("newsId", comment.getNewsId())
+                  .addParameter("commentDate", comment.getCommentDate())
+                  .addParameter("reviewId", comment.getReviewId())
+                  .executeUpdate()
+                  .getKey(Long.class);
+
+      }
+    }
+
+    @Override
     public List<Comment> getAllCommentByNews(long newsId) {
         String sql = "SELECT * FROM comment WHERE newsid = :newsId";
         try(Connection conn = sql2o.open()){
