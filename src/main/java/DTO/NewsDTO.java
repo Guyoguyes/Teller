@@ -19,7 +19,8 @@ public class NewsDTO implements NewsDAO {
     public void createNews(News news) {
         //debug purpose
         System.out.println(news);
-        String sql = "INSERT INTO news (categoryid, authorid, header, content, createdat) VALUES (:categoryId, :authorId, :header, :content, :createdAt)";
+        // TODO: likes and dislikes
+        String sql = "INSERT INTO news (categoryid, authorid, header, content, createdat, likes, dislikes) VALUES (:categoryId, :authorId, :header, :content, :createdAt, :likes, :dislike)";
         try(Connection conn = sql2o.open()){
             long id = (long) conn.createQuery(sql, true)
                     .bind(news)

@@ -12,6 +12,10 @@ public class News {
     private String content;
     private Timestamp createdAt;
 
+    //likes and dislike
+    private int likesCount;
+    private int dislikesCount;
+
     //TODO news image
 
     public News(long categoryId, long authorId, String header, String content, Timestamp createdAt){
@@ -20,6 +24,8 @@ public class News {
         this.header = header;
         this.content = content;
         this.createdAt = createdAt;
+        this.likesCount = 0;
+        this.dislikesCount = 0;
     }
 
     public long getNewsId() {
@@ -70,17 +76,33 @@ public class News {
         this.createdAt = createdAt;
     }
 
+    public int getLikesCount() {
+        return likesCount;
+    }
+
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public int getDislikesCount() {
+        return dislikesCount;
+    }
+
+    public void setDislikesCount(int dislikesCount) {
+        this.dislikesCount = dislikesCount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         News news = (News) o;
-        return Objects.equals(newsId, news.newsId) && Objects.equals(categoryId, news.categoryId) && Objects.equals(authorId, news.authorId) && Objects.equals(content, news.content) && Objects.equals(createdAt, news.createdAt);
+        return newsId == news.newsId && categoryId == news.categoryId && authorId == news.authorId && likesCount == news.likesCount && dislikesCount == news.dislikesCount && Objects.equals(header, news.header) && Objects.equals(content, news.content) && Objects.equals(createdAt, news.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(newsId, categoryId, authorId, content, createdAt);
+        return Objects.hash(newsId, categoryId, authorId, header, content, createdAt, likesCount, dislikesCount);
     }
 
     @Override
@@ -89,8 +111,20 @@ public class News {
                 "newsId=" + newsId +
                 ", categoryId=" + categoryId +
                 ", authorId=" + authorId +
+                ", header='" + header + '\'' +
                 ", content='" + content + '\'' +
                 ", createdAt=" + createdAt +
+                ", likesCount=" + likesCount +
+                ", dislikesCount=" + dislikesCount +
                 '}';
+    }
+
+    // methods
+    public void upvote(){
+        likesCount++;
+    }
+
+    public void downvote(){
+        dislikesCount++;
     }
 }
