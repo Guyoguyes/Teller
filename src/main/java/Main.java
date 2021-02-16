@@ -194,6 +194,7 @@ public class Main {
             }
         });
 
+        //post a review on comment
         post("api/news/:newsId/comment/:commentId/review", "application/json", (req, res) -> {
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
@@ -212,6 +213,18 @@ public class Main {
                     res.status(200);
                     return gson.toJson(review);
                 }
+            }
+        });
+        
+        //get all reviews by a comment
+        get("api/comment/:commentId/reviews/:reviewId", "application/json", (req, res) -> {
+            int commentId = Integer.parseInt(req.params("commentId"));
+            Comment comment = commentDTO.findCommentById(commentId);
+            if(comment == null){
+                return "{\"message\":\"no comment found\"}";
+            }else{
+                int reviewId = Integer.parseInt(req.params("reviewId"));
+                return gson.toJson(commentDTO.getAllReviewsByComment(reviewId));
             }
         });
 

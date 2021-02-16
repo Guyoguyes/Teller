@@ -63,6 +63,16 @@ public class CommentDTO implements CommentDAO {
     }
 
     @Override
+    public List<Comment> getAllReviewsByComment(long reviewid) {
+        String sql = "SELECT * FROM comment WHERE reviewid = :reviewId";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .addParameter("reviewId", reviewid)
+                    .executeAndFetch(Comment.class);
+        }
+    }
+
+    @Override
     public Comment findCommentById(long commentId) {
         String sql = "SELECT * FROM comment WHERE commentid = :commentId";
         try(Connection conn = sql2o.open()){

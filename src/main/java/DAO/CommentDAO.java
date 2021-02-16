@@ -24,4 +24,8 @@ public interface CommentDAO {
 
     //post a review
     void postReview(Comment comment);
+
+    //get all reviews by a comment
+    List<Comment> getAllReviewsByComment(long reviewid);
+
 }
