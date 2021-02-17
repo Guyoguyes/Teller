@@ -1,5 +1,7 @@
 package models;
 
+import java.io.File;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
@@ -8,19 +10,21 @@ public class News {
     private long newsId;
     private long categoryId;
     private long authorId;
+    private File folioImage;
     private String header;
     private String content;
     private Timestamp createdAt;
 
-    //likes and dislike
+    //TODO likes and dislike
     private int likesCount;
     private int dislikesCount;
 
     //TODO news image
 
-    public News(long categoryId, long authorId, String header, String content, Timestamp createdAt){
+    public News(long categoryId, long authorId, File folioImage, String header, String content, Timestamp createdAt){
         this.categoryId = categoryId;
         this.authorId = authorId;
+        this.folioImage = folioImage;
         this.header = header;
         this.content = content;
         this.createdAt = createdAt;
@@ -50,6 +54,14 @@ public class News {
 
     public void setAuthorId(long authorId) {
         this.authorId = authorId;
+    }
+
+    public File getFolioImage() {
+        return folioImage;
+    }
+
+    public void setFolioImage(File folioImage) {
+        this.folioImage = folioImage;
     }
 
     public String getHeader() {
