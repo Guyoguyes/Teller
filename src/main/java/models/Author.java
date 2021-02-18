@@ -7,6 +7,7 @@ public class Author {
     private long authorId;
     private String firstName;
     private String lastName;
+    private byte[] avatar;
     private String title;
 
     //TODO: Author image profile
@@ -14,6 +15,7 @@ public class Author {
     public Author(String firstName, String lastName, String title){
         this.firstName = firstName;
         this.lastName = lastName;
+//        this.avatar = avatar;
         this.title = title;
     }
 
@@ -40,6 +42,14 @@ public class Author {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+//    public byte[] getAvatar() {
+//        return avatar;
+//    }
+//
+//    public void setAvatar(byte[] avatar) {
+//        this.avatar = avatar;
+//    }
 
     public String getTitle() {
         return title;

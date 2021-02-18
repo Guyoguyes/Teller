@@ -17,11 +17,6 @@ public class Comment {
         this.commentDate = commentDate;
     }
 
-    public Comment(String content, Timestamp commentDate) {
-        this.content = content;
-        this.commentDate = commentDate;
-    }
-
     public long getCommentId() {
         return commentId;
     }
