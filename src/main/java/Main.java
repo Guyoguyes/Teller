@@ -5,6 +5,7 @@ import models.*;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -142,6 +143,21 @@ public class Main {
 
         });
 
+        put("api/news/:newsId/likes", "application/json", (req, res) ->  {
+            int newsId = Integer.parseInt(req.params("newsId"));
+            News news = newsDTO.findNewsById(newsId);
+            if(news == null){
+                return "{\"message\":\"no news found\"}";
+            }else{
+                news.setNewsId(newsId);
+                int initVote = 0;
+                News vote = new News(initVote);
+                vote.upvote();
+                int newVote = Integer.parseInt(String.valueOf(vote));
+                newsDTO.upVote(newVote);
+                return gson.toJson(newVote);
+            }
+        });
 
 
 

@@ -21,4 +21,7 @@ public interface NewsDAO {
 
     //get all news by author
     List<News> getAllNewsByAuthor(long authorid);
+
+    //update votes by news
+    void upVote( int likes);
 }

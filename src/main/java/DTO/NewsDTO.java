@@ -20,7 +20,7 @@ public class NewsDTO implements NewsDAO {
         //debug purpose
         System.out.println(news);
         // TODO: likes and dislikes
-        String sql = "INSERT INTO news (categoryid, authorid,  header, content, createdat) VALUES (:categoryId, :authorId, :header, :content, :createdAt,)";
+        String sql = "INSERT INTO news (categoryid, authorid,  header, content, createdat) VALUES (:categoryId, :authorId, :header, :content, :createdAt)";
         try(Connection conn = sql2o.open()){
             long id = (long) conn.createQuery(sql, true)
                     .bind(news)
@@ -67,6 +67,16 @@ public class NewsDTO implements NewsDAO {
             return conn.createQuery(sql)
                     .addParameter("authorId", authorid)
                     .executeAndFetch(News.class);
+        }
+    }
+
+    @Override
+    public void upVote(int likes) {
+        String sql = "UPDATE news SET likes = :likes WHERE newsid = :newsId";
+        try(Connection conn = sql2o.open()){
+            conn.createQuery(sql)
+                    .addParameter("likes", likes)
+                    .executeUpdate();
         }
     }
 }

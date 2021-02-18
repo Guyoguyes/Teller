@@ -15,6 +15,9 @@ public class News {
     private String content;
     private Timestamp createdAt;
 
+    //votes
+    private int likesVote;
+    private int dislikeVote;
 
     //TODO news image
 
@@ -25,7 +28,14 @@ public class News {
         this.header = header;
         this.content = content;
         this.createdAt = createdAt;
+        this.likesVote = 0;
+        this.dislikeVote = 0;
     }
+
+    public News(int likesVote){
+        this.likesVote = likesVote;
+    }
+
 
     public long getNewsId() {
         return newsId;
@@ -106,6 +116,13 @@ public class News {
                 ", content='" + content + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public void upvote(){
+        likesVote++;
+    }
+    public void downvote(){
+        dislikeVote++;
     }
 
 }
