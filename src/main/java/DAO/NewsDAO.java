@@ -1,6 +1,5 @@
 package DAO;
 
-import com.google.gson.JsonElement;
 import models.News;
 
 import java.util.List;
@@ -23,5 +22,5 @@ public interface NewsDAO {
     List<News> getAllNewsByAuthor(long authorid);
 
     //update votes by news
-    void upVote( int likes);
+    void updateNews(News news);
 }

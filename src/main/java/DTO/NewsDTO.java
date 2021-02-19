@@ -1,7 +1,6 @@
 package DTO;
 
 import DAO.NewsDAO;
-import com.google.gson.JsonElement;
 import models.News;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -71,11 +70,10 @@ public class NewsDTO implements NewsDAO {
     }
 
     @Override
-    public void upVote(int likes) {
-        String sql = "UPDATE news SET likes = :likes WHERE newsid = :newsId";
+    public void updateNews(News news) {
+        String sql = "UPDATE news SET likesvote = :likesvote WHERE newsid = :newsId";
         try(Connection conn = sql2o.open()){
             conn.createQuery(sql)
-                    .addParameter("likes", likes)
                     .executeUpdate();
         }
     }

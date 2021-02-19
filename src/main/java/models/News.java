@@ -1,10 +1,7 @@
 package models;
 
-import java.io.File;
-import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
 
 public class News {
     private long newsId;
@@ -16,7 +13,7 @@ public class News {
     private Timestamp createdAt;
 
     //votes
-    private int likesVote;
+    private int likesVote = 0;
     private int dislikeVote;
 
     //TODO news image
@@ -28,8 +25,6 @@ public class News {
         this.header = header;
         this.content = content;
         this.createdAt = createdAt;
-        this.likesVote = 0;
-        this.dislikeVote = 0;
     }
 
     public News(int likesVote){
@@ -118,8 +113,8 @@ public class News {
                 '}';
     }
 
-    public void upvote(){
-        likesVote++;
+    public int upvote(){
+        return likesVote++;
     }
     public void downvote(){
         dislikeVote++;

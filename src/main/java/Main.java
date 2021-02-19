@@ -143,21 +143,22 @@ public class Main {
 
         });
 
-        put("api/news/:newsId/likes", "application/json", (req, res) ->  {
-            int newsId = Integer.parseInt(req.params("newsId"));
-            News news = newsDTO.findNewsById(newsId);
-            if(news == null){
-                return "{\"message\":\"no news found\"}";
-            }else{
-                news.setNewsId(newsId);
-                int initVote = 0;
-                News vote = new News(initVote);
-                vote.upvote();
-                int newVote = Integer.parseInt(String.valueOf(vote));
-                newsDTO.upVote(newVote);
-                return gson.toJson(newVote);
-            }
-        });
+//        put("api/news/:newsId/likes", "application/json", (req, res) ->  {
+//            int newsId = Integer.parseInt(req.params("newsId"));
+//            News news = newsDTO.findNewsById(newsId);
+//            if(news == null){
+//                return "{\"message\":\"no news found\"}";
+//            }else{
+//                news.setNewsId(newsId);
+////                int initVote = 0;
+////                News vote = null;
+////                vote.upvote();
+////                int newVote = Integer.parseInt(String.valueOf(vote));
+//                int vote = news.upvote();
+//                News news1 = gson.fromJson(req.body(), News.class);
+//                return gson.toJson(newsDTO.updateNews(news1));
+//            }
+//        });
 
 
 
