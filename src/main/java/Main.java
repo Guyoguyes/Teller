@@ -53,7 +53,7 @@ public class Main {
             int categoryId = Integer.parseInt(req.params("catId"));
             Category category = categoryDTO.findById(categoryId);
             if(category == null){
-                return "{\"message\":\"no category found\"}";
+                throw new ApiException(404, String.format("No category of id \"%s\" found", req.params("catId")));
             }else{
                 return gson.toJson(categoryDTO.deleteCategory(categoryId));
             }
@@ -85,9 +85,10 @@ public class Main {
             int categoryId = Integer.parseInt(req.params("categoryId"));
             Category category = categoryDTO.findById(categoryId);
             if(category == null){
-                return "{\"message\":\"no category found\"}";
+                throw new ApiException(404, String.format("No category of id \"%s\" found", req.params("catId")));
             }else{
                 News news = gson.fromJson(req.body(), News.class);
+                news.setCategoryId(categoryId);
                 newsDTO.createNews(news);
                 res.status(201);
                 return gson.toJson(news);
@@ -103,7 +104,7 @@ public class Main {
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
-                return "{\"message\":\"no news found\"}";
+                throw new ApiException(404, String.format("No news of id \"%s\" found", req.params("newsId")));
             }else{
                 return gson.toJson(news);
             }
@@ -125,7 +126,7 @@ public class Main {
             int authorId = Integer.parseInt(req.params("authorId"));
             Author author = authorDTO.findById(authorId);
             if(author == null){
-                return "{\"message\":\"no news found\"}";
+                throw new ApiException(404, String.format("No author of id \"%s\" found", req.params("authorId")));
             }else{
                 return gson.toJson(newsDTO.getAllNewsByAuthor(authorId));
             }
@@ -135,7 +136,7 @@ public class Main {
             int catId = Integer.parseInt(req.params("catId"));
             Category category = categoryDTO.findById(catId);
             if(category == null){
-                return "{\"message\":\"no news found\"}";
+                throw new ApiException(404, String.format("No news of id \"%s\" found", req.params("newsId")));
             }else{
                 return gson.toJson(newsDTO.getAllNewsByCategory(catId));
             }
@@ -167,9 +168,10 @@ public class Main {
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
-                return "{\"message\":\"no news found\"}";
+                throw new ApiException(404, String.format("No news of id \"%s\" found", req.params("newsId")));
             }else{
                 Comment comment = gson.fromJson(req.body(), Comment.class);
+                comment.setNewsId(newsId);
                 commentDTO.postComment(comment);
                 res.status(200);
                 return gson.toJson(comment);
@@ -180,7 +182,7 @@ public class Main {
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
-                return "{\"message\":\"no news found\"}";
+                throw new ApiException(404, String.format("No news of id \"%s\" found", req.params("newsId")));
             }else{
                 return gson.toJson(commentDTO.getAllCommentByNews(newsId));
             }
@@ -197,12 +199,12 @@ public class Main {
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
-                return "{\"message\":\"no news found\"}";
+                throw new ApiException(404, String.format("No news of id \"%s\" found", req.params("newsId")));
             }else{
                 int commentId = Integer.parseInt(req.params("commentId"));
                 Comment comment = commentDTO.findCommentById(commentId);
                 if(comment == null){
-                    return "{\"message\":\"no comment found\"}";
+                    throw new ApiException(404, String.format("No comment of id \"%s\" found", req.params("commentId")));
                 }else{
                     res.status(200);
 
@@ -216,12 +218,12 @@ public class Main {
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
-                return "{\"message\":\"no news found\"}";
+                throw new ApiException(404, String.format("No news of id \"%s\" found", req.params("newsId")));
             }else{
                 int commentId = Integer.parseInt(req.params("commentId"));
                 Comment comment = commentDTO.findCommentById(commentId);
                 if(comment == null){
-                    return "{\"message\":\"no comment found\"}";
+                    throw new ApiException(404, String.format("No comment of id \"%s\" found", req.params("commentId")));
                 }else{
                     Comment review = gson.fromJson(req.body(), Comment.class);
                     review.setNewsId(newsId);
@@ -238,7 +240,7 @@ public class Main {
             int commentId = Integer.parseInt(req.params("commentId"));
             Comment comment = commentDTO.findCommentById(commentId);
             if(comment == null){
-                return "{\"message\":\"no comment found\"}";
+                throw new ApiException(404, String.format("No comment of id \"%s\" found", req.params("commentId")));
             }else{
                 int reviewId = Integer.parseInt(req.params("reviewId"));
                 return gson.toJson(commentDTO.getAllReviewsByComment(reviewId));
