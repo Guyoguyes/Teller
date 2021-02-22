@@ -81,17 +81,25 @@ public class Main {
 
 
         //NEWS
-        post("api/category/:categoryId/news", "application/json", (req, res) ->{
+        post("api/category/:categoryId/author/:authorId/news", "application/json", (req, res) ->{
             int categoryId = Integer.parseInt(req.params("categoryId"));
             Category category = categoryDTO.findById(categoryId);
             if(category == null){
                 throw new ApiException(404, String.format("No category of id \"%s\" found", req.params("catId")));
             }else{
-                News news = gson.fromJson(req.body(), News.class);
-                news.setCategoryId(categoryId);
-                newsDTO.createNews(news);
-                res.status(201);
-                return gson.toJson(news);
+                int authorId = Integer.parseInt(req.params("authorId"));
+                Author author = authorDTO.findById(authorId);
+                if(author == null){
+                    throw new ApiException(404, String.format("No author of id \"%s\" found", req.params("authorId")));
+                }else{
+                    News news = gson.fromJson(req.body(), News.class);
+                    news.setCategoryId(categoryId);
+                    news.setAuthorId(authorId);
+                    newsDTO.createNews(news);
+                    res.status(201);
+                    return gson.toJson(news);
+                }
+
             }
         });
 
@@ -227,6 +235,7 @@ public class Main {
                 }else{
                     Comment review = gson.fromJson(req.body(), Comment.class);
                     review.setNewsId(newsId);
+                    review.setCommentId(commentId);
                     review.setReviewId(comment.getCommentId());
                     commentDTO.postReview(review);
                     res.status(200);

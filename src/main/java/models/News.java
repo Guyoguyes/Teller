@@ -1,36 +1,27 @@
 package models;
 
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class News {
     private long newsId;
     private long categoryId;
-    private long authorId;
 //    private File folioImage;
+    private long authorId;
     private String header;
     private String content;
     private Timestamp createdAt;
 
-    //votes
-    private int likesVote = 0;
-    private int dislikeVote;
-
     //TODO news image
 
-    public News(long categoryId, long authorId, String header, String content, Timestamp createdAt){
+    public News(long categoryId, long authorId, String header, String content){
         this.categoryId = categoryId;
-        this.authorId = authorId;
 //        this.folioImage = folioImage;
         this.header = header;
         this.content = content;
-        this.createdAt = createdAt;
     }
-
-    public News(int likesVote){
-        this.likesVote = likesVote;
-    }
-
 
     public long getNewsId() {
         return newsId;
@@ -56,7 +47,7 @@ public class News {
         this.authorId = authorId;
     }
 
-//    public File getFolioImage() {
+    //    public File getFolioImage() {
 //        return folioImage;
 //    }
 //
@@ -88,12 +79,13 @@ public class News {
         this.createdAt = createdAt;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         News news = (News) o;
-        return newsId == news.newsId && categoryId == news.categoryId && authorId == news.authorId  && Objects.equals(header, news.header) && Objects.equals(content, news.content) && Objects.equals(createdAt, news.createdAt);
+        return newsId == news.newsId && categoryId == news.categoryId && authorId == news.authorId && Objects.equals(header, news.header) && Objects.equals(content, news.content) && Objects.equals(createdAt, news.createdAt);
     }
 
     @Override
@@ -112,12 +104,4 @@ public class News {
                 ", createdAt=" + createdAt +
                 '}';
     }
-
-    public int upvote(){
-        return likesVote++;
-    }
-    public void downvote(){
-        dislikeVote++;
-    }
-
 }

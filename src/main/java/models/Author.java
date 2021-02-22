@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Author {
+    //TODO NEWSID(author class) AND AUTHORID(news class)
+    // -> understand the concept of one-2-many db relationship
     private long authorId;
     private String firstName;
     private String lastName;

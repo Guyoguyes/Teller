@@ -11,10 +11,9 @@ public class Comment {
     private Timestamp commentDate;
     private long reviewId;
 
-    public Comment(long newsId, String content, Timestamp commentDate){
+    public Comment(long newsId, String content){
         this.newsId = newsId;
         this.content = content;
-        this.commentDate = commentDate;
     }
 
     public long getCommentId() {

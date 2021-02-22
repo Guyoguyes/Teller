@@ -17,7 +17,7 @@ public class CommentDTO implements CommentDAO {
 
     @Override
     public void postComment(Comment comment) {
-        String sql = "INSERT INTO comment (newsid, content, commentdate) VALUES (:newsId, :content, :commentDate)";
+        String sql = "INSERT INTO comment (newsid, content, commentdate) VALUES (:newsId, :content, now())";
         try(Connection conn = sql2o.open()){
             long id = conn.createQuery(sql, true)
                     .bind(comment)
@@ -29,7 +29,7 @@ public class CommentDTO implements CommentDAO {
 
     @Override
     public void postReview(Comment comment) {
-        String sql = "INSERT INTO comment(content, newsid, commentdate, reviewid) VALUES (:content, :newsId, :commentDate, :reviewId)";
+        String sql = "INSERT INTO comment(content, newsid, commentdate, reviewid) VALUES (:content, :newsId, now(), :reviewId)";
       try(Connection conn = sql2o.open()){
           conn.createQuery(sql, true)
                   .addParameter("content", comment.getContent())
