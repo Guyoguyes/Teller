@@ -6,6 +6,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -237,6 +238,8 @@ public class Main {
                     review.setNewsId(newsId);
                     review.setCommentId(commentId);
                     review.setReviewId(comment.getCommentId());
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    review.setCommentDate(timestamp);
                     commentDTO.postReview(review);
                     res.status(200);
                     return gson.toJson(review);
