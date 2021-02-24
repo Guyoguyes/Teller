@@ -15,6 +15,13 @@ import static spark.Spark.*;
 
 
 public class Main {
+    static int getHerokuAssignedPort(){
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if(processBuilder.environment().get("PORT") != null){
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567;
+    }
     public static void main(String[] args) {
         CategoryDTO categoryDTO;
         AuthorDTO authorDTO;
@@ -23,8 +30,8 @@ public class Main {
         Connection conn;
         Gson gson = new Gson();
 
-        String connectionString = "jdbc:postgresql://localhost:5432/tellernews";
-        Sql2o sql2o = new Sql2o(connectionString, "guyo","password");
+        String connectionString = "jdbc:postgresql://ec2-52-204-141-94.compute-1.amazonaws.com:5432/d2vsrhhntehmj6";
+        Sql2o sql2o = new Sql2o(connectionString, "edcafbglqymlwd","ba11bc5fcedc29d58f88061d68998bb932afaeb32e535852594d6807621c0173");
         categoryDTO = new CategoryDTO(sql2o);
         authorDTO = new AuthorDTO(sql2o);
         newsDTO = new NewsDTO(sql2o);
