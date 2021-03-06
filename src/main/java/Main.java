@@ -39,7 +39,7 @@ public class Main {
         conn = sql2o.open();
 
         //CATEGORY
-        post("api/category", "application/json", (req, res) ->{
+        post("/api/category", "application/json", (req, res) ->{
             Category category = gson.fromJson(req.body(), Category.class);
             categoryDTO.createCategory(category);
             res.status(201);
@@ -50,14 +50,14 @@ public class Main {
             return gson.toJson(categoryDTO.getAllCategory());
         });
 
-        get("api/category/:catId", "application/json", (req, res) ->{
+        get("/api/category/:catId", "application/json", (req, res) ->{
             int categoryId = Integer.parseInt(req.params("catId"));
             res.status(200);
             return gson.toJson(categoryDTO.findById(categoryId));
         });
 
 
-        delete("api/category/:catId", "application/json", (req, res) ->{
+        delete("/api/category/:catId", "application/json", (req, res) ->{
             int categoryId = Integer.parseInt(req.params("catId"));
             Category category = categoryDTO.findById(categoryId);
             if(category == null){
@@ -68,19 +68,19 @@ public class Main {
         });
 
         //AUTHOR
-        post("api/author", "application/json", (req, res) ->{
+        post("/api/author", "application/json", (req, res) ->{
             Author author = gson.fromJson(req.body(), Author.class);
             authorDTO.createAuthor(author);
             res.status(201);
             return gson.toJson(author);
         });
 
-        get("api/author", "application/json", (req, res) ->{
+        get("/api/author", "application/json", (req, res) ->{
             res.status(200);
             return gson.toJson(authorDTO.getAllAuthor());
         });
 
-        get("api/author/:authorId", "application/json", (req, res) ->{
+        get("/api/author/:authorId", "application/json", (req, res) ->{
             int authorId = Integer.parseInt(req.params("authorId"));
             res.status(200);
             return gson.toJson(authorDTO.findById(authorId));
@@ -89,7 +89,7 @@ public class Main {
 
 
         //NEWS
-        post("api/category/:categoryId/author/:authorId/news", "application/json", (req, res) ->{
+        post("/api/category/:categoryId/author/:authorId/news", "application/json", (req, res) ->{
             int categoryId = Integer.parseInt(req.params("categoryId"));
             Category category = categoryDTO.findById(categoryId);
             if(category == null){
@@ -111,12 +111,12 @@ public class Main {
             }
         });
 
-        get("api/news", "application/json", (req, res) ->{
+        get("/api/news", "application/json", (req, res) ->{
             res.status(201);
             return gson.toJson(newsDTO.getAllNews());
         });
 
-        get("api/news/:newsId", "application/json", (req, res) ->{
+        get("/api/news/:newsId", "application/json", (req, res) ->{
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
@@ -138,7 +138,7 @@ public class Main {
 //            }
 //        });
 
-        get("api/news/author/:authorId", "application/json", (req, res) ->{
+        get("/api/news/author/:authorId", "application/json", (req, res) ->{
             int authorId = Integer.parseInt(req.params("authorId"));
             Author author = authorDTO.findById(authorId);
             if(author == null){
@@ -148,7 +148,7 @@ public class Main {
             }
         });
 
-        get("api/category/:catId/news", "application/json", (req, res) ->{
+        get("/api/category/:catId/news", "application/json", (req, res) ->{
             int catId = Integer.parseInt(req.params("catId"));
             Category category = categoryDTO.findById(catId);
             if(category == null){
@@ -180,7 +180,7 @@ public class Main {
 
 
         //COMMENTS
-        post("api/news/:newsId/comment", "application/json", (req, res) ->{
+        post("/api/news/:newsId/comment", "application/json", (req, res) ->{
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
@@ -194,7 +194,7 @@ public class Main {
             }
         });
 
-        get("api/news/:newsId/comment", "application/json", (req, res) ->{
+        get("/api/news/:newsId/comment", "application/json", (req, res) ->{
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
@@ -204,14 +204,14 @@ public class Main {
             }
         });
 
-        get("api/news/:newsId/comment/count", "application/json", (req, res) ->{
+        get("/api/news/:newsId/comment/count", "application/json", (req, res) ->{
             int newsId = Integer.parseInt(req.params("newsId"));
             newsDTO.findNewsById(newsId);
             res.status(200);
             return gson.toJson(commentDTO.totalCommentByNews(newsId));
         });
 
-        delete("api/news/:newsId/comment/:commentId/delete",  "application/json", (req, res) ->{
+        delete("/api/news/:newsId/comment/:commentId/delete",  "application/json", (req, res) ->{
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
@@ -230,7 +230,7 @@ public class Main {
         });
 
         //post a review on comment
-        post("api/news/:newsId/comment/:commentId/review", "application/json", (req, res) -> {
+        post("/api/news/:newsId/comment/:commentId/review", "application/json", (req, res) -> {
             int newsId = Integer.parseInt(req.params("newsId"));
             News news = newsDTO.findNewsById(newsId);
             if(news == null){
@@ -255,7 +255,7 @@ public class Main {
         });
         
         //get all reviews by a comment
-        get("api/comment/:commentId/reviews/:reviewId", "application/json", (req, res) -> {
+        get("/api/comment/:commentId/reviews/:reviewId", "application/json", (req, res) -> {
             int commentId = Integer.parseInt(req.params("commentId"));
             Comment comment = commentDTO.findCommentById(commentId);
             if(comment == null){
